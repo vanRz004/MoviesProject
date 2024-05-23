@@ -4,6 +4,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import PrimeVue from 'primevue/config';
+import ToastService from 'primevue/toastservice';
 
 import AutoComplete from 'primevue/autocomplete';
 import Accordion from 'primevue/accordion';
@@ -98,7 +99,6 @@ import TabMenu from 'primevue/tabmenu';
 import TieredMenu from 'primevue/tieredmenu';
 import Textarea from 'primevue/textarea';
 import Toast from 'primevue/toast';
-import ToastService from 'primevue/toastservice';
 import Toolbar from 'primevue/toolbar';
 import TabView from 'primevue/tabview';
 import TabPanel from 'primevue/tabpanel';
@@ -118,7 +118,8 @@ import 'primevue/resources/themes/lara-dark-amber/theme.css'
 const app = createApp(App)
 
 app.use(router)
-app.use(PrimeVue )
+app.use(PrimeVue)
+app.use(ToastService)
 app.directive('tooltip', Tooltip);
 app.directive('badge', BadgeDirective);
 app.directive('ripple', Ripple);
