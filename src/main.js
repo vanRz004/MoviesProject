@@ -113,7 +113,7 @@ import TreeTable from 'primevue/treetable';
 import TriStateCheckbox from 'primevue/tristatecheckbox';
 import VirtualScroller from 'primevue/virtualscroller';
 
-import 'primevue/resources/themes/lara-light-amber/theme.css'
+import 'primevue/resources/themes/lara-dark-amber/theme.css'
 
 const app = createApp(App)
 
