@@ -21,7 +21,7 @@
 /* SCROLLBAR */
 ::-webkit-scrollbar{
   display: none;
-  
+
 }
 a{
   text-decoration: none;
@@ -34,7 +34,7 @@ body{
   color: var(--text-color);
 
 }
-@media (max-width: 408px) {
+@media only screen and (max-width: 800px) {
   *{
       scroll-padding-top: 5rem;
   }

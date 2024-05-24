@@ -1,14 +1,14 @@
 <template>
     <div class="movies-container">
-        <Toast />
+
         <h1>Busca las mejores películas</h1>
         <div class="movies-grid">
             <Card class="movie-card" v-for="(movie, i) in list" :key="i" @click="openModal(movie)">
                 <template #header>
-                    <img alt="user header" :src="imageURL + movie.poster_path" />
+                    <img alt="image-movie" :src="imageURL + movie.poster_path" />
                 </template>
                 <template #title>{{ movie.title }}</template>
-                <template #subtitle>Calificación: {{ movie.vote_average }}/10</template>
+                <template #subtitle>Fecha de lanzamiento: {{ movie.release_date }}</template>
             </Card>
         </div>
         <Dialog dismissable-mask=true v-model:visible="visible" modal :pt="{
@@ -17,6 +17,11 @@
             mask: {
                 style: 'backdrop-filter: blur(2px)'
             }
+        }" :breakpoints="{
+            '1199px': '75vw',
+            '992px': '85vw',
+            '768px': '90vw',
+            '576px': '95vw'
         }">
             <template #container="{ closeCallback }">
                 <div class="content-modal"
@@ -54,7 +59,6 @@
 </template>
 <script setup>
 import { ref, watch } from 'vue';
-import { useToast } from "primevue/usetoast";
 
 const imageURL = ref("https://image.tmdb.org/t/p/w500");
 const props = defineProps(['movies']);
@@ -63,7 +67,7 @@ const visible = ref(false);
 const infoModal = ref("");
 const imagenInfo = ref("");
 const loading = ref(false);
-const toast = useToast();
+
 
 const openModal = (info) => {
     visible.value = true;
@@ -116,11 +120,16 @@ watch(() => props.movies, (newValue, oldValue) => {
 }
 
 .movie-card ::v-deep .p-card-title {
-    margin-left: .5rem;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    padding: 5px;
 }
 
-.movie-card ::v-deep .p-card-subtitle {
-    margin-left: .5rem;
+.movie-card ::deep .p-card-subtitle {
+    height: 50%
 }
 
 img {
@@ -183,5 +192,110 @@ img {
 
 .container-info-movie {
     width: 500px;
+}
+
+@media only screen and (max-width: 1200px) {
+    .content-modal * {
+        padding: 0;
+    }
+
+    .content-modal {
+        padding: 5rem 2rem;
+    }
+
+    .content {
+        gap: 2rem;
+        padding: 2rem;
+    }
+
+    .poster-movie {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .left {
+        margin: 3rem;
+    }
+
+    .right {
+        font-size: 1.2rem;
+    }
+
+    .container-info-movie {
+        width: 300px;
+        height: 300px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .content-modal * {
+        padding: 0;
+    }
+
+    .content-modal {
+        padding: 25rem 0;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+    }
+
+    .content {
+        justify-content: center;
+        gap: 1rem;
+        flex-direction: column;
+        align-items: center;
+        margin: auto;
+        padding: 0;
+        width: 100%;
+    }
+
+    .container-info-movie {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .content-modal * {
+        padding: 0;
+    }
+
+    .content-modal {
+
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .left {
+        margin: 5rem 0 0;
+    }
+
+    .content {
+        justify-content: center;
+        flex-direction: column;
+        width: 50%;
+        align-items: center;
+        gap: 0;
+
+    }
+
+    .container-info-movie {
+        width: 100%;
+        font-size:1rem ;
+        max-width: 400px;
+        height: auto;
+    }
+
+    .poster-movie  {
+        width: 70%;
+        height: 70%;
+        object-fit: cover;
+    }
+
 }
 </style>
