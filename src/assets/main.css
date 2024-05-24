@@ -31,6 +31,9 @@ li{
 }
 body{
   background-color: var(--body-color);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../assets/img/155962604_bf1ecaec-d764-489d-9ebf-1b08fef491dd.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
   color: var(--text-color);
 
 }
