@@ -1,3 +1,15 @@
+<template>
+  <main>
+    <section class="home container" id="home">
+      <Toast />
+      <div class="search-box">
+        <InputText v-model="buscador" size="large" placeholder="Buscar..." @keyup.enter="searchMovie()" />
+        <Button label="Buscar" icon="pi pi-search" :loading="loading" @click="searchMovie()"></Button>
+      </div>
+      <Movies :movies="movies"></Movies>
+    </section>
+  </main>
+</template>
 <script setup>
 import { query } from '@/API/config';
 import Movies from '@/components/moviesList/Movies.vue';
@@ -12,11 +24,9 @@ const movies = ref([])
 const toast = useToast();
 
 const searchMovie = async () => {
-  console.log("si se envioo")
-  console.log("buscador", buscador.value)
   if (buscador.value.trim() === "") {
     toast.add({ severity: 'error', summary: 'Error', detail: "El campo de búsqueda está vacio", life: 3000 });
-  }else{
+  } else {
 
     loading.value = true;
     try {
@@ -26,8 +36,10 @@ const searchMovie = async () => {
           query: buscador.value
         }
       });
-      console.log(data.results)
       movies.value = data.results;
+      if (data.results == []) {
+        toast.add({ severity: 'error', summary: 'Error', detail: "No se ha encontrado nada con este nombre", life: 3000 });
+      }
     } catch (error) {
       if (error instanceof AxiosError) {
         console.log(error)
@@ -38,35 +50,10 @@ const searchMovie = async () => {
     }
   }
 };
-
-// onMounted(async () => {
-//   await searchMovie(buscador.value); 
-// });
-// watch(buscador, async (newValue, currentValue) => {
-//   if (newValue !== currentValue) {
-//     await searchMovie(newValue);
-//   }
-// });
-
 </script>
-
-<template>
-  <main>
-    <section class="home container" id="home">
-      <Toast />
-      <div class="search-box">
-        <InputText v-model="buscador" size="large" placeholder="Buscar..." />
-        <Button  label="Buscar" icon="pi pi-search" :loading="loading" @click="searchMovie()"></Button> 
-      </div>
-      <Movies :movies = "movies"></Movies>
-    </section>
-  </main>
-</template>
-
 <style scoped>
 main {
   margin-top: 10rem;
-
 }
 
 .search-box {
